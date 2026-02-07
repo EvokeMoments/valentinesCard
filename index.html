@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine Postcard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --red: #d32f2f;
+        --deep-red: #9f1d1d;
+        --cream: #fff4e8;
+        --blush: #ffe3e1;
+        --shadow: rgba(140, 20, 20, 0.25);
+        --glass: rgba(255, 244, 232, 0.72);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Montserrat", sans-serif;
+        background: radial-gradient(circle at top, #fff7f2 0%, #ffe8e6 40%, #fcd6d2 100%);
+        color: var(--deep-red);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        overflow: hidden;
+      }
+
+      .floating-hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .floating-hearts span {
+        position: absolute;
+        bottom: -60px;
+        font-size: clamp(16px, 2vw, 22px);
+        opacity: 0.7;
+        animation: floatUp linear infinite;
+        color: rgba(211, 47, 47, 0.35);
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(0.8);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-120vh) scale(1.4);
+          opacity: 0;
+        }
+      }
+
+      .view {
+        display: none;
+      }
+
+      .view.active {
+        display: block;
+      }
+
+      .postcard {
+        position: relative;
+        z-index: 2;
+        background: var(--glass);
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 20px 45px rgba(159, 29, 29, 0.18);
+        padding: clamp(24px, 5vw, 50px);
+        width: min(540px, 92vw);
+        text-align: center;
+        overflow: hidden;
+        backdrop-filter: blur(12px);
+      }
+
+      .postcard::before,
+      .postcard::after {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border-radius: 22px;
+        border: 1px dashed rgba(211, 47, 47, 0.35);
+        pointer-events: none;
+      }
+
+      .postcard::after {
+        inset: 24px;
+        border-style: solid;
+        border-color: rgba(211, 47, 47, 0.12);
+      }
+
+      .decoration {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .corner {
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        background: radial-gradient(circle, rgba(211, 47, 47, 0.14) 0%, transparent 70%);
+      }
+
+      .corner.top-left {
+        top: 0;
+        left: 0;
+      }
+
+      .corner.top-right {
+        top: 0;
+        right: 0;
+      }
+
+      .corner.bottom-left {
+        bottom: 0;
+        left: 0;
+      }
+
+      .corner.bottom-right {
+        bottom: 0;
+        right: 0;
+      }
+
+      .roses {
+        position: absolute;
+        font-size: clamp(18px, 3vw, 28px);
+      }
+
+      .roses.top {
+        top: 18px;
+        right: 24px;
+      }
+
+      .roses.bottom {
+        bottom: 20px;
+        left: 28px;
+      }
+
+      .hearts {
+        position: absolute;
+        font-size: clamp(18px, 2.5vw, 26px);
+      }
+
+      .hearts.left {
+        top: 32%;
+        left: 18px;
+      }
+
+      .hearts.right {
+        bottom: 32%;
+        right: 18px;
+      }
+
+      h1 {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(30px, 5.2vw, 48px);
+        margin: 34px 0 18px;
+        color: var(--deep-red);
+        line-height: 1.2;
+      }
+
+      .message {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(16px, 2.8vw, 20px);
+        color: #a52a2a;
+        margin-bottom: 26px;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      button,
+      .ghost-link {
+        font-family: "Montserrat", sans-serif;
+        font-size: 15px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 12px 26px;
+        border-radius: 999px;
+        border: 1.5px solid var(--red);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        min-width: 120px;
+        background: transparent;
+        text-decoration: none;
+      }
+
+      button.primary {
+        background: linear-gradient(135deg, #d32f2f, #b71c1c);
+        color: var(--cream);
+        box-shadow: 0 12px 20px rgba(211, 47, 47, 0.35);
+      }
+
+      button.secondary {
+        background: var(--cream);
+        color: var(--red);
+      }
+
+      button:hover,
+      .ghost-link:hover {
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      button:active,
+      .ghost-link:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      .response {
+        margin-top: 20px;
+        font-size: clamp(18px, 2.6vw, 22px);
+        color: var(--deep-red);
+        min-height: 28px;
+      }
+
+      .celebration-title {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(34px, 6vw, 54px);
+        margin-bottom: 12px;
+      }
+
+      .celebration-message {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(18px, 3vw, 22px);
+        margin-bottom: 24px;
+      }
+
+      .confetti {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 16px auto 26px;
+        font-size: clamp(18px, 3vw, 26px);
+        color: #d32f2f;
+      }
+
+      .ghost-link {
+        color: var(--red);
+        border-color: rgba(211, 47, 47, 0.5);
+        background: rgba(255, 244, 232, 0.9);
+      }
+
+      @media (max-width: 480px) {
+        .postcard {
+          padding: 24px 18px;
+        }
+
+        .roses.top {
+          top: 10px;
+          right: 14px;
+        }
+
+        .roses.bottom {
+          bottom: 10px;
+          left: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floating-hearts" aria-hidden="true">
+      <span style="left: 10%; animation-duration: 12s; animation-delay: 0s">❤</span>
+      <span style="left: 25%; animation-duration: 14s; animation-delay: 2s">❤</span>
+      <span style="left: 40%; animation-duration: 16s; animation-delay: 4s">❤</span>
+      <span style="left: 55%; animation-duration: 13s; animation-delay: 1s">❤</span>
+      <span style="left: 70%; animation-duration: 18s; animation-delay: 3s">❤</span>
+      <span style="left: 85%; animation-duration: 15s; animation-delay: 5s">❤</span>
+    </div>
+
+    <main class="postcard">
+      <div class="decoration" aria-hidden="true">
+        <span class="corner top-left"></span>
+        <span class="corner top-right"></span>
+        <span class="corner bottom-left"></span>
+        <span class="corner bottom-right"></span>
+        <span class="roses top">🌹🌹</span>
+        <span class="roses bottom">🌹</span>
+        <span class="hearts left">❤ ❤</span>
+        <span class="hearts right">❤</span>
+      </div>
+
+      <section class="view active" id="mainView">
+        <h1>Aryan, will you be my Valentine?</h1>
+        <p class="message">A sweet little note sealed with all my love.</p>
+
+        <div class="buttons">
+          <button class="primary" id="yesButton" type="button">YES</button>
+          <button class="secondary" id="noButton" type="button">NO</button>
+        </div>
+
+        <div class="response" id="response" aria-live="polite"></div>
+      </section>
+
+      <section class="view" id="yesView">
+        <h2 class="celebration-title">Yay, it&apos;s a date! ✨</h2>
+        <p class="celebration-message">I&apos;m doing a happy dance already. Let&apos;s make it unforgettable. ❤️</p>
+        <div class="confetti" aria-hidden="true">
+          <span>🎉</span>
+          <span>💌</span>
+          <span>🌹</span>
+          <span>✨</span>
+          <span>💖</span>
+          <span>🥂</span>
+          <span>🎶</span>
+          <span>💕</span>
+          <span>🍓</span>
+        </div>
+        <a class="ghost-link" href="#">Back to card</a>
+      </section>
+    </main>
+
+    <script>
+      const response = document.getElementById("response");
+      const yesButton = document.getElementById("yesButton");
+      const noButton = document.getElementById("noButton");
+      const mainView = document.getElementById("mainView");
+      const yesView = document.getElementById("yesView");
+
+      const setViewFromHash = () => {
+        const hash = window.location.hash.replace("#", "");
+        if (hash === "yes") {
+          mainView.classList.remove("active");
+          yesView.classList.add("active");
+        } else {
+          yesView.classList.remove("active");
+          mainView.classList.add("active");
+          if (hash === "no") {
+            response.textContent = "Not applicable ❤️";
+          } else {
+            response.textContent = "";
+          }
+        }
+      };
+
+      yesButton.addEventListener("click", () => {
+        window.location.hash = "yes";
+        setViewFromHash();
+      });
+
+      noButton.addEventListener("click", () => {
+        window.location.hash = "no";
+        setViewFromHash();
+      });
+
+      window.addEventListener("hashchange", setViewFromHash);
+      setViewFromHash();
+    </script>
+  </body>
+</html>
