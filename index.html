@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine Postcard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="floating-hearts" aria-hidden="true">
+      <span style="left: 10%; animation-duration: 12s; animation-delay: 0s">❤</span>
+      <span style="left: 25%; animation-duration: 14s; animation-delay: 2s">❤</span>
+      <span style="left: 40%; animation-duration: 16s; animation-delay: 4s">❤</span>
+      <span style="left: 55%; animation-duration: 13s; animation-delay: 1s">❤</span>
+      <span style="left: 70%; animation-duration: 18s; animation-delay: 3s">❤</span>
+      <span style="left: 85%; animation-duration: 15s; animation-delay: 5s">❤</span>
+    </div>
+
+    <main class="postcard">
+      <div class="decoration" aria-hidden="true">
+        <span class="corner top-left"></span>
+        <span class="corner top-right"></span>
+        <span class="corner bottom-left"></span>
+        <span class="corner bottom-right"></span>
+        <span class="roses top">🌹🌹</span>
+        <span class="roses bottom">🌹</span>
+        <span class="hearts left">❤ ❤</span>
+        <span class="hearts right">❤</span>
+      </div>
+
+      <h1>Aryan, will you be my Valentine?</h1>
+      <p class="message">A sweet little note sealed with all my love.</p>
+
+      <div class="buttons">
+        <button class="primary" id="yesButton" type="button">YES</button>
+        <button class="secondary" id="noButton" type="button">NO</button>
+      </div>
+
+      <div class="response" id="response" aria-live="polite"></div>
+    </main>
+
+    <div class="modal" id="noModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true">
+        <h3>System Invalid Response</h3>
+        <p>You are already my valentine. ❤️</p>
+        <button class="primary" id="closeModal" type="button">Okay</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
